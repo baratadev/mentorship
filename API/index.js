@@ -12,8 +12,28 @@ const server = http.createServer((req, res) => {
   // response header content-type
   res.setHeader('Content-Type', 'application/json');
 
-  // response
-  res.write('{"name": "barata"}');
+  // case for each request method
+  switch (url) {
+    case '/':
+      if (method === 'GET') {
+        res.write('{"show": "users"}');
+      } else if (method === 'POST') {
+        res.write('{"add": "user"}');
+      } else if (method === 'PUT') {
+        res.write('{"edit": "user"}');
+      } else if (method === 'DELETE') {
+        res.write('{"user": "delete"}');
+      } else {
+        res.write('{"not": "allowed"}');
+      }
+      break;
+
+    default:
+      res.write('{"not": "found"}');
+      break;
+  }
+
+  // end response
   res.end();
 });
 

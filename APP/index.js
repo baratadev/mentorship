@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
   // request
   const url = req.url;
   const method = req.method;
-  console.log(url, method);
+  //console.log(url, method);
 
   // response
   // set header content-type
@@ -17,8 +17,9 @@ const server = http.createServer((req, res) => {
 
   // fetch API data
   const fetchUsersData = async () => {
+    const options = { method: method };
     try {
-      const response = await fetch(apiHost);
+      const response = await fetch(apiHost, options);
       const data = await response.json();
       console.log(data);
     } catch (err) {
@@ -43,15 +44,19 @@ const server = http.createServer((req, res) => {
         urlPath += '/users/users.html';
         res.statusCode = 200;
       } else if (method === 'POST') {
+        fetchUsersData();
         urlPath += '/users/add-user.html';
         res.statusCode = 200;
       } else if (method === 'PUT') {
         urlPath += '/users/edit-user.html';
+        fetchUsersData();
         res.statusCode = 200;
       } else if (method === 'DELETE') {
+        fetchUsersData();
         urlPath += '/users/delete-user.html';
         res.statusCode = 200;
       } else {
+        fetchUsersData();
         console.log('405 - METHOD NOT ALLOWED');
         res.statusCode = 405;
       }
