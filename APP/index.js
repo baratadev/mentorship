@@ -3,6 +3,7 @@ const hostname = 'localhost';
 const http = require('http');
 const fs = require('fs');
 const fetch = require('node-fetch');
+const apiHost = 'http://localhost:3001';
 // server
 const server = http.createServer((req, res) => {
   // request
@@ -13,6 +14,17 @@ const server = http.createServer((req, res) => {
   // response
   // set header content-type
   res.setHeader('Content-Type', 'text/html');
+
+  // fetch API data
+  const fetchUsersData = async () => {
+    try {
+      const response = await fetch(apiHost);
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.log(`SOMETHING WENT WRONG: ${err}`);
+    }
+  };
 
   // set path for html pages
   let urlPath = './pages/';
@@ -27,6 +39,7 @@ const server = http.createServer((req, res) => {
     // users endpoint
     case '/users':
       if (method === 'GET') {
+        fetchUsersData();
         urlPath += '/users/users.html';
         res.statusCode = 200;
       } else if (method === 'POST') {
