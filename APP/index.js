@@ -50,7 +50,7 @@ const server = http.createServer((req, res) => {
       break;
   }
 
-  // read home page
+  // read html pages
   fs.readFile(urlPath, (err, data) => {
     if (err) {
       console.log(`SOMETHING WENT WRONG: ${err}`);
