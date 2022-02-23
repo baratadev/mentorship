@@ -2,7 +2,7 @@ const port = 3000;
 const hostname = 'localhost';
 const http = require('http');
 const fs = require('fs');
-
+const fetch = require('node-fetch');
 // server
 const server = http.createServer((req, res) => {
   // request
